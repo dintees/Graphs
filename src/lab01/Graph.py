@@ -25,7 +25,7 @@ class Graph():
                 if v[0] not in adjacency_list[v[1]]: adjacency_list[v[1]].append(v[0])
                 if v[1] not in adjacency_list[v[0]]: adjacency_list[v[0]].append(v[1])
         
-        return [tuple([ el + 1 for el in lst]) for lst in adjacency_list]
+        return [tuple([ el for el in lst]) for lst in adjacency_list]
 
     def incidence_matrix_to_adjacency_matrix(matrix):
         matrix = np.array(matrix)
@@ -54,7 +54,7 @@ class Graph():
             adjacency_list.append([])
             for y in range(cols) : 
                 if (adjacency_matrix[x][y] == 1) :
-                    adjacency_list[-1].append(y + 1)
+                    adjacency_list[-1].append(y)
 
         return [tuple(lst) for lst in adjacency_list]
 
@@ -81,7 +81,7 @@ class Graph():
 
     def adjacency_list_to_adjacency_matrix(adjacency_list):
         neighbours = adjacency_list
-        adjacency_matrix = [[1 if i+1 in node_neighbours else 0 for i in range(len(neighbours))] for node_neighbours in neighbours]
+        adjacency_matrix = [[1 if i in node_neighbours else 0 for i in range(len(neighbours))] for node_neighbours in neighbours]
         return adjacency_matrix
 
     def adjacency_list_to_incidence_matrix(adjacency_list):
@@ -89,8 +89,8 @@ class Graph():
         edges = []
         for i in range(len(neighbours)):
             for node in neighbours[i]:
-                edges.append([i, node-1])
-                neighbours[node-1].remove(i+1)
+                edges.append([i, node])
+                neighbours[node].remove(i)
 
         incidence_matrix = [[0 for _ in range(len(edges))] for _ in range(len(neighbours))]
         for count, edge in enumerate(edges):
@@ -103,7 +103,7 @@ class Graph():
         """Returns list of e random edges for nodes in range [0, n-1]"""
         if n*(n-1)/2 < e or n < 0 or e < 0:
             return None
-        allEdges = combinations(range(1, n+1), 2)
+        allEdges = combinations(range(n), 2)
         edges = sample(list(allEdges), e)
         return edges 
 
@@ -111,7 +111,7 @@ class Graph():
         """Returns list of random edges with probability p for nodes in range [0, n-1]"""
         if p < 0 or p > 1 or n < 0:
             return None 
-        edges = combinations(range(1, n+1), 2)
+        edges = combinations(range(n), 2)
         edges = list(filter(lambda _: random() < p, edges))
         return edges
 
@@ -129,7 +129,6 @@ class Graph():
         
         nodes = Graph.getNodes(adjacency_list)
         edges = Graph.getEdges(adjacency_list)
-        print(edges)
         
         g = nx.Graph()
         g.add_nodes_from(nodes)
@@ -148,14 +147,24 @@ class Graph():
         plt.savefig("temp.png")
     
     def getNodes(adjacency_list):
-        return list(range(1, len(adjacency_list)))
+        return list(range(len(adjacency_list)))
     
     def getEdges(adjacency_list):
         edges = []
         for i, lst in enumerate(adjacency_list):
             for el in lst:
-                edges.append((i+1, el))
+                edges.append((i, el))
         return edges
+    
+    def edges_to_adjacency_list(edges):
+        nodes = sorted(list(set([node for edge in edges for node in edge])))
+        adjacency_list = [[] for _ in range(max(nodes))]
+        for edge in edges:
+            adjacency_list[edge[0] - 1].append(edge[1])
+        for edge in edges:
+            adjacency_list[edge[1] - 1].append(edge[0])
+        return adjacency_list 
+        
             
     def read_from_file(path):
         with open(path, "r") as f:
