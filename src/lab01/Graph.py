@@ -158,11 +158,11 @@ class Graph():
     
     def edges_to_adjacency_list(edges):
         nodes = sorted(list(set([node for edge in edges for node in edge])))
-        adjacency_list = [[] for _ in range(max(nodes))]
+        adjacency_list = [[] for _ in range(len(nodes))]
         for edge in edges:
-            adjacency_list[edge[0] - 1].append(edge[1])
+            adjacency_list[edge[0]].append(edge[1])
         for edge in edges:
-            adjacency_list[edge[1] - 1].append(edge[0])
+            adjacency_list[edge[1]].append(edge[0])
         return adjacency_list 
         
             

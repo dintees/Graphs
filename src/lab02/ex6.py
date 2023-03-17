@@ -1,8 +1,5 @@
-from functools import reduce
 from ..lab01.Graph import Graph
-import time
-
-def fulfill_dirac_theorem(adjacency_list):
+def does_fulfill_dirac_theorem(adjacency_list):
     node_count = len(adjacency_list)
     if node_count >= 3: 
         for lst in adjacency_list:
@@ -12,42 +9,37 @@ def fulfill_dirac_theorem(adjacency_list):
     return True 
 
 
-def is_hamiltonian(adjacency_list):
+def has_hamiltonian_cycle(adjacency_list):
     if len(adjacency_list) == 0:
         return True
-    if fulfill_dirac_theorem(adjacency_list):
+    if does_fulfill_dirac_theorem(adjacency_list):
         return True
 
-    matrix = Graph.adjacency_list_to_adjacency_matrix(adjacency_list)
+    adjacency_list = [[el for el in lst] for lst in adjacency_list]
+    stack = [0]
+    while len(stack) > 0:
+        curr = stack[-1]
 
+        #check if last node has edge to 0, if yes then return True 
+        if len(stack) == len(adjacency_list):
+            if 0 in adjacency_list[curr]:
+                return True
 
-def dfs(node, adjacency_matrix, in_stack, stack_count):
-    if stack_count == len(adjacency_matrix):
-        return True
-    for i in range(len(adjacency_matrix)):
-        pass
+            #unmark nodes in list and pop node from stack otherwise
+            adjacency_list[curr] = [abs(el) for el in adjacency_list[curr]]
+            stack.pop()
+            continue
 
-
-        
+        #push node into stack if it is not there, and mark node in adjacency list with minus sign
+        for idx, el in enumerate(adjacency_list[curr]):
+            if el > 0 and el not in stack:
+                stack.append(el)
+                adjacency_list[curr][idx] *= -1
+                break
+        #unmark nodes in list and pop node from stack if are 0 nodes to move to 
+        else:
+            adjacency_list[curr] = [abs(el) for el in adjacency_list[curr]]
+            stack.pop()
+            continue
     
     return False
-
-
-
-
-
-
-
-
-
-
-
-    
-    return False
-    
-
-
-
-    # return node_count, edge_count
-
-

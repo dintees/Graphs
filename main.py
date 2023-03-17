@@ -4,7 +4,7 @@ from pprint import pprint
 import argparse
 
 from src.lab01.Graph import Graph
-from src.lab02.ex6 import is_hamiltonian
+from src.lab02.ex6 import has_hamiltonian_cycle 
 
 def pp(*args):
     pprint(*args, compact=False, width=150)
@@ -27,9 +27,9 @@ def main(lab_num):
         Graph.showGraph(adjacency_list, repr_type="list")
     
     elif lab_num == 2:
-        edges = Graph.randomNE(5, 6)
+        edges = Graph.randomNE(5, 8)
         adjacency_list = Graph.edges_to_adjacency_list(edges)
-        print(is_hamiltonian(adjacency_list))
+        print(has_hamiltonian_cycle(adjacency_list))
 
 
 if __name__ == "__main__":
