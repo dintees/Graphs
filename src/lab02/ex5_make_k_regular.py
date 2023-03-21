@@ -12,6 +12,4 @@ def make_k_regular(v_count, deg):
         j = 0
         while j<v_count:
             edges.append((v, ))
-
-
     pass
