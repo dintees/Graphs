@@ -146,6 +146,25 @@ class Graph():
 
         plt.savefig("temp.png")
     
+    def showWeightedGraph(weightedEges):
+        g = nx.Graph(weightedEges)
+
+        p = plt.figure(randint(0, 10e10))
+        p.set_size_inches(8,8)
+
+        node_opts = {"node_size": 700, "edgecolors": "black", "linewidths": 1.0}
+        pos = nx.circular_layout(g)
+        edge_labels = nx.get_edge_attributes(g,'weight')
+        nx.draw_networkx_nodes(g, pos, **node_opts)
+        nx.draw_networkx_labels(g, pos, font_size=20, font_color="white")
+        nx.draw_networkx_edges(g, pos, width=2.0, edge_color="black")
+        nx.draw_networkx_edge_labels(g,pos,edge_labels=edge_labels, font_size=20, label_pos=0.4)
+
+        p.tight_layout()
+
+        plt.savefig("temp.png")
+        
+    
     def getNodes(adjacency_list):
         return list(range(len(adjacency_list)))
     

@@ -183,12 +183,14 @@ def generate_random_connected_graph_with_weight(amountVertices):
     A, edges = generate_random_graphical(amountVertices)
   
   edgesWithweight = add_weight(edges)
-  return A, edges, edgesWithweight
+  edgesWithWeightNetworkx = [(edge[0][0], edge[0][1], {"weight": edge[1]}) for edge in edgesWithweight  ]
+  return A, edges, edgesWithWeightNetworkx 
   
 ##############################################################################
 #jako argument funkcja generate_random_connected_graph_with_weight() przyjmuje
 #liczbe wezlow 
 #losuje spojny, prosty graf w wagami krawedzi
 
-A, edges, edgesWithWeight = generate_random_connected_graph_with_weight(6)
-draw_graph(len(A), edgesWithWeight)
+if __name__ == "__main__":
+  A, edges, edgesWithWeight = generate_random_connected_graph_with_weight(6)
+  draw_graph(len(A), edgesWithWeight)

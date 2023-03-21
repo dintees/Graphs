@@ -4,7 +4,8 @@ from pprint import pprint
 import argparse
 
 from src.lab01.Graph import Graph
-from src.lab02.ex6 import has_hamiltonian_cycle 
+from src.lab02.ex6_has_hamiltionian_cycle import has_hamiltonian_cycle 
+from src.lab03.ex2_djikstra import djikstra
 
 def pp(*args):
     pprint(*args, compact=False, width=150)
@@ -30,6 +31,12 @@ def main(lab_num):
         edges = Graph.randomNE(5, 8)
         adjacency_list = Graph.edges_to_adjacency_list(edges)
         print(has_hamiltonian_cycle(adjacency_list))
+
+    elif lab_num == 3:
+        djikstra()
+
+
+
 
 
 if __name__ == "__main__":
