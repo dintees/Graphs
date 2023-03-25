@@ -1,0 +1,65 @@
+from generateRandomGraphWithWeight import generate_random_connected_graph_with_weight, draw_graph
+from math import inf
+import numpy as np
+import time
+
+def init(n, start_node):
+    ds = [inf for _ in range(n)]
+    ps = [None for _ in range(n)]
+    ds[start_node-1] = 0
+    return ds, ps
+
+def dist(u,v, edgesWithWeight):
+    weight = [edge[1] for edge in edgesWithWeight if edge[0] == (u,v) or edge[0] == (v,u)]
+    return weight[0]
+
+
+def relax(u, v, ds, ps, edgesWithWeight):
+    w = dist(u+1, v+1, edgesWithWeight)
+
+    if ds[v] > ds[u] + w:
+        ds[v] = ds[u] + w
+        ps[v] = u + 1
+
+def find_neighbour(ind, edges):
+    neighbours = []
+
+    for edge in edges: 
+        if edge[0][0] == ind or edge[0][1] == ind:
+            if edge[0][0] == ind:
+                neighbours.append(edge[0][1]-1)
+            elif edge[0][1] == ind:
+                neighbours.append(edge[0][0]-1)
+
+    return neighbours
+
+def dijkstra(n, start_node):
+    A, edges, edgesWithWeight = generate_random_connected_graph_with_weight(n)
+    draw_graph(len(A), edgesWithWeight)
+
+    # edges = [(1, 2), (1, 3), (1, 4), (2, 3), (2, 4), (3, 5)]
+    # edgesWithWeight = [((1, 2), 7), ((1, 3), 4), ((1, 4), 9), ((2, 3), 7), ((2, 4), 8), ((3, 5), 1)]
+
+    ds, ps = init(n, start_node)
+    S = []
+
+    while len(S) != n:
+        if(len(S) == 0):
+            u = start_node-1
+        else:
+            tmp = [inf if i == start_node-1 or i+1 in S else ds[i] for i in range(n)]
+            u = ds.index(min(tmp)) 
+
+        S.append(u+1)
+        neighbours = find_neighbour(u+1, edgesWithWeight)
+        for neighbour in neighbours:
+            if neighbour + 1 not in S:
+                relax(u, neighbour, ds, ps, edgesWithWeight)
+
+    print(ds)
+    print(ps)
+    
+
+
+if __name__ == "__main__":
+    dijkstra(5, 4)

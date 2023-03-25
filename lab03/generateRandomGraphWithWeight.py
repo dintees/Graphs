@@ -189,5 +189,6 @@ def generate_random_connected_graph_with_weight(amountVertices):
 #liczbe wezlow 
 #losuje spojny, prosty graf w wagami krawedzi
 
-A, edges, edgesWithWeight = generate_random_connected_graph_with_weight(5)
-draw_graph(len(A), edgesWithWeight)
+if __name__ == "__main__":
+    A, edges, edgesWithWeight = generate_random_connected_graph_with_weight(5)
+    draw_graph(len(A), edgesWithWeight)
