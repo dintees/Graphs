@@ -35,10 +35,10 @@ def find_neighbour(ind, edges):
 
 def dijkstra(n, start_node):
     A, edges, edgesWithWeight = generate_random_connected_graph_with_weight(n)
-    draw_graph(len(A), edgesWithWeight)
 
     # edges = [(1, 2), (1, 3), (1, 4), (2, 3), (2, 4), (3, 5)]
     # edgesWithWeight = [((1, 2), 7), ((1, 3), 4), ((1, 4), 9), ((2, 3), 7), ((2, 4), 8), ((3, 5), 1)]
+    # draw_graph(n, edgesWithWeight)
 
     ds, ps = init(n, start_node)
     S = []
@@ -56,10 +56,38 @@ def dijkstra(n, start_node):
             if neighbour + 1 not in S:
                 relax(u, neighbour, ds, ps, edgesWithWeight)
 
-    print(ds)
-    print(ps)
+    return ds, ps, edgesWithWeight
+
+def display_dijkstra(seq, ds):
+    for i in range(len(ds)):
+        print("d("+str(i+1)+") = " + str(ds[i]) + " ==> [",  end='')
+        for j in range(len(seq[i])-1, -1, -1):
+            if j != 0:
+                print(str(seq[i][j]), end=" - ")
+            else:
+                print(str(seq[i][j]), end="")
+        
+        print("]")
+    
+def seq_dijkstra(ds, ps, node):
+    seq = [[i+1] for i in range(len(ps))]
+    for i in range(len(ds)):
+            parent = ps[i]
+            if parent != None:
+                while parent != node:
+                    seq[i].append(parent)
+                    tmp = parent - 1
+                    parent = ps[tmp]   
+                seq[i].append(parent)      
+    return seq
     
 
 
 if __name__ == "__main__":
-    dijkstra(5, 4)
+    n = 16
+    start_node = 4
+
+    ds, ps, edgesWithWeight = dijkstra(n, start_node)
+    seq = seq_dijkstra(ds, ps, start_node)
+    display_dijkstra(seq, ds)
+    draw_graph(n, edgesWithWeight)
