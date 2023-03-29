@@ -2,6 +2,7 @@ from generateRandomGraphWithWeight import generate_random_connected_graph_with_w
 from math import inf
 import numpy as np
 import time
+from collections import Counter     
 
 def init(n, start_node):
     ds = [inf for _ in range(n)]
@@ -14,12 +15,16 @@ def dist(u,v, edgesWithWeight):
     return weight[0]
 
 
-def relax(u, v, ds, ps, edgesWithWeight):
+def relax(u, v, ds, ps, edgesWithWeight): 
     w = dist(u+1, v+1, edgesWithWeight)
 
     if ds[v] > ds[u] + w:
         ds[v] = ds[u] + w
         ps[v] = u + 1
+
+
+def arrays_equal(a, b):
+    return Counter(a) == Counter(b)
 
 def find_neighbour(ind, edges):
     neighbours = []
@@ -36,19 +41,16 @@ def find_neighbour(ind, edges):
 def dijkstra(n, start_node):
     A, edges, edgesWithWeight = generate_random_connected_graph_with_weight(n)
 
-    # edges = [(1, 2), (1, 3), (1, 4), (2, 3), (2, 4), (3, 5)]
-    # edgesWithWeight = [((1, 2), 7), ((1, 3), 4), ((1, 4), 9), ((2, 3), 7), ((2, 4), 8), ((3, 5), 1)]
-    # draw_graph(n, edgesWithWeight)
-
     ds, ps = init(n, start_node)
     S = []
+    G = range(1,n+1)
 
-    while len(S) != n:
+    while not arrays_equal(S, G):
         if(len(S) == 0):
             u = start_node-1
         else:
             tmp = [inf if i == start_node-1 or i+1 in S else ds[i] for i in range(n)]
-            u = ds.index(min(tmp)) 
+            u = tmp.index(min(tmp)) 
 
         S.append(u+1)
         neighbours = find_neighbour(u+1, edgesWithWeight)
@@ -84,7 +86,7 @@ def seq_dijkstra(ds, ps, node):
 
 
 if __name__ == "__main__":
-    n = 16
+    n = 9
     start_node = 4
 
     ds, ps, edgesWithWeight = dijkstra(n, start_node)
