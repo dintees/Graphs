@@ -152,7 +152,7 @@ class Graph():
         p = plt.figure(randint(0, 10e10))
         p.set_size_inches(8,8)
 
-        node_opts = {"node_size": 700, "edgecolors": "black", "linewidths": 1.0}
+        node_opts = {"node_size": 500, "edgecolors": "black", "linewidths": 1.0}
         pos = nx.circular_layout(g)
         edge_labels = nx.get_edge_attributes(g,'weight')
         nx.draw_networkx_nodes(g, pos, **node_opts)
@@ -163,7 +163,31 @@ class Graph():
         p.tight_layout()
 
         plt.savefig("temp.png")
-        
+    
+    def showWeightedDirectedGraph(weightedDirectedEdges):
+        g = nx.DiGraph()
+        g.add_edges_from(weightedDirectedEdges)
+
+        lastNode = g.size() - 1
+
+        p = plt.figure(randint(0, 10e10))
+        p.set_size_inches(8,8)
+
+        pos = nx.circular_layout(g)
+
+        node_opts = {"node_size": 700, "edgecolors": "black", "linewidths": 1.0}
+        edge_labels = nx.get_edge_attributes(g, 'weight')
+        node_colors = ['red' if (node == 0 or node == len(g.nodes) - 1) 
+                            else 'blue' for node in g.nodes()]
+        nx.draw_networkx_nodes(g, pos, node_color=node_colors, **node_opts)
+        nx.draw_networkx_labels(g, pos, font_size=20, font_color="white")
+        nx.draw_networkx_edges(g, pos, width=2.0, edge_color="black", arrowsize=15)
+        nx.draw_networkx_edge_labels(g,pos,edge_labels=edge_labels, font_size=20, label_pos=0.4)
+
+        p.tight_layout()
+        plt.axis('off')
+        plt.savefig("temp.png")
+
     
     def getNodes(adjacency_list):
         return list(range(len(adjacency_list)))

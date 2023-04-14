@@ -45,4 +45,4 @@ def prim(nodes, edges):
     T.append(new_node)
     spanning_tree_nodes.append(new_node)
     spanning_tree_edges.append(tmp_edge)
-  return spanning_tree_nodes, spanning_tree_edge
+  return spanning_tree_nodes, spanning_tree_edges
