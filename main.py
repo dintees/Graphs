@@ -37,7 +37,7 @@ def main(lab_num):
         djikstra()
 
     elif lab_num == 5:
-        nodes, edges = generate_random_flow_network(2)
+        nodes, edges = generate_random_flow_network(3)
         print(edges)
         Graph.showWeightedDirectedGraph(edges)
 

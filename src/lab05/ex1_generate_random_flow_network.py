@@ -34,9 +34,6 @@ def generate_random_flow_network(n):
     return nodes, weightedEdges 
 
 
-
-
-
 def get_nodes_divided_into_layers(nodes, n):
     nodeLayers = [None for i in range(n)]
 
