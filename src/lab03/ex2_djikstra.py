@@ -1,4 +1,4 @@
-from ex1_generate_random_connected_graph_with_weight import generate_random_connected_graph_with_weight, draw_graph
+from .ex1_generate_random_connected_graph_with_weight import generate_random_connected_graph_with_weight, draw_graph
 from math import inf
 import numpy as np
 import time
