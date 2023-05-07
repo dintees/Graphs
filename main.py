@@ -7,9 +7,13 @@ from src.lab01.Graph import Graph
 
 from src.lab02.ex1_is_graphical_graph import is_graphical_graph
 from src.lab02.ex2_randomize_graph import draw_graph, process_graph, randomize_graph
+from src.lab02.ex4_Eulerian_graph import random_eulerian_graph
 from src.lab02.ex6_has_hamiltionian_cycle import has_hamiltonian_cycle
 
+from src.lab03.Edge import Edge
 from src.lab03.ex2_djikstra import dijkstra
+from src.lab03.ex5_prim import prim
+
 # from src.lab05.ex1_generate_random_flow_network import generate_random_flow_network
 
 def pp(*args):
@@ -30,17 +34,18 @@ def main(lab_num):
         pp(Graph.adjacency_matrix_to_incidence_matrix(adjacency_matrix))
 
         # 2.
-        Graph.showGraph(incidence_matrix, repr_type="incidence", filename="graph01")
-        Graph.showGraph(adjacency_matrix, repr_type="adjacency", filename="graph02")
-        Graph.showGraph(adjacency_list, repr_type="list", filename="graph03")
+        Graph.showGraph(incidence_matrix, repr_type="incidence", filename="lab02_ex01_incidence")
+        Graph.showGraph(adjacency_matrix, repr_type="adjacency", filename="lab02_ex01_adjacency")
+        Graph.showGraph(adjacency_list, repr_type="list", filename="lab02_ex01_list")
 
-        # 3. *** TODO ***
+        # 3.
         # G(n, l)
-        random_graph1 = Graph.randomNE(10, 10)
-        # Graph.showGraph(random_graph1, repr_type="list", filename="graph04")
+        random_graph1 = Graph.randomNE(4, 5)
+        draw_graph(3, random_graph1, "lab01_ex03a")
+
         # G(n, p)
         random_graph2 = Graph.randomNP(10, 1)
-        # Graph.showGraph(random_graph2, repr_type="list", filename="graph05")
+        draw_graph(9, random_graph2, "lab01_ex03b")
     
     elif lab_num == 2:
         # 1.
@@ -63,8 +68,11 @@ def main(lab_num):
         # *** TODO ***
 
         # 4.
-        # *** TODO ***
-        
+        # *** TODO - printing the Euler cycle ***
+        n = 8
+        edges = random_eulerian_graph(n)
+        draw_graph(n, edges, "lab02_ex04")
+
         # 5.
         edges = Graph.randomNE(5, 8)
         adjacency_list = Graph.edges_to_adjacency_list(edges)
@@ -73,7 +81,21 @@ def main(lab_num):
         print(has_hamiltonian_cycle(adjacency_list))
 
     elif lab_num == 3:
-        dijkstra()
+        # ...
+
+        # dijkstra()
+
+        # ...
+        
+        # 5.
+        nodes = list(range(1, 13))
+        edges = [Edge(1, 2, 3), Edge(1, 5, 9), Edge(1, 3, 2), Edge(2, 5, 4), Edge(3, 5, 6), Edge(2, 4, 2), Edge(4, 7, 3), Edge(5, 7, 1), Edge(5, 8, 2), Edge(8, 10, 5), Edge(7, 10, 5), Edge(8, 12, 9), Edge(10, 12, 5), Edge(3, 6, 9), Edge(6, 8, 1), Edge(6, 9, 2), Edge(9, 11, 2), Edge(8, 11, 6), Edge(11, 12, 3),]
+
+        minimal_spanning_tree, spanning_tree_edges = prim(nodes, edges)
+
+        print("Minimal spanning tree:", minimal_spanning_tree) # text representation
+        draw_graph(12, [[i.begin, i.end] for i in spanning_tree_edges], "lab03_ex05") # graphical interpretation
+
 
     # elif lab_num == 5:
     #     nodes, edges = generate_random_flow_network(3)

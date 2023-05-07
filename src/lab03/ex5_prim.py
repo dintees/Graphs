@@ -1,14 +1,5 @@
-class Edge():
-  def __init__(self, begin, end, weight):
-    self.begin = begin
-    self.end = end
-    self.weight = weight
+from .Edge import Edge
 
-  def __str__(self):
-    return f'{self.begin}-{self.end} [{self.weight}]'
-
-  __repr__ = __str__
-  
 def find_edge_from_T_to_W(edges, selected_T, W):
   """ Returns the edge with the minimum weight that is both in the set T and W """
   edge = Edge(0, 0, float("inf"))
@@ -30,7 +21,7 @@ def prim(nodes, edges):
   T = [nodes[0]]
   W = nodes[1:]
 
-  spanning_tree_nodes = []
+  spanning_tree_nodes = [nodes[0]]
   spanning_tree_edges = []
   while W:
     # finding the light edge
@@ -39,7 +30,7 @@ def prim(nodes, edges):
       tmp = find_edge_from_T_to_W(edges, T_node, W)
       if tmp.weight < tmp_edge.weight:
         tmp_edge = tmp
-    
+
     new_node = tmp_edge.begin if tmp_edge.begin in W else tmp_edge.end
     W.remove(new_node)
     T.append(new_node)
