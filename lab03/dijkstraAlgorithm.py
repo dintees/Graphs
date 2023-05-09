@@ -90,6 +90,7 @@ if __name__ == "__main__":
     start_node = 4
 
     ds, ps, edgesWithWeight = dijkstra(n, start_node)
+    print(ds, ps)
     seq = seq_dijkstra(ds, ps, start_node)
     display_dijkstra(seq, ds)
     draw_graph(n, edgesWithWeight)

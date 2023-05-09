@@ -2,11 +2,15 @@ import numpy as np
 from pathlib import Path
 from pprint import pprint 
 import argparse
+from src.lab03.ex1_generate_random_connected_graph_with_weight import generate_random_connected_graph_with_weight
 
 from src.lab01.Graph import Graph
 from src.lab02.ex6_has_hamiltionian_cycle import has_hamiltonian_cycle 
-from src.lab03.ex2_djikstra import djikstra
+from src.lab03.ex3_find_shortest_paths_matrix import find_shortest_paths_matrix
+from src.lab03.ex4_find_center_node import find_center_node
 from src.lab05.ex1_generate_random_flow_network import generate_random_flow_network
+from src.lab04.ex1_generate_random_digraph import generate_random_digraph
+from src.lab04.ex2_kosarajiu import kosaraju
 
 def pp(*args):
     pprint(*args, compact=False, width=150)
@@ -34,7 +38,18 @@ def main(lab_num):
         print(has_hamiltonian_cycle(adjacency_list))
 
     elif lab_num == 3:
-        djikstra()
+        n = 5
+        # find_shortest_path_matrix(4)
+        _, _, edgesWithWeight, _ = generate_random_connected_graph_with_weight(5) 
+        find_center_node(edgesWithWeight, 5)
+    
+    elif lab_num == 4:
+
+        dg = generate_random_digraph(5, 0.5)
+        res = kosaraju(dg.nodes, dg.edges)
+        print(res)
+
+    
 
     elif lab_num == 5:
         nodes, edges = generate_random_flow_network(3)
