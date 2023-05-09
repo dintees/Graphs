@@ -6,6 +6,12 @@ from .Vertice import Vertice
 from .ex1_is_graphical_graph import is_graphical_graph
 
 def draw_graph(nodes, edges, filename = "graph.png"):
+  """
+  Draws graph and save the image to the file
+  Param nodes: number of nodes
+  Param edges: list of tuples that represents edge
+  Param filename: name of the resulting file
+  """
   plt.figure()
   G = nx.Graph()
   nx.circular_layout(G)
@@ -17,6 +23,11 @@ def draw_graph(nodes, edges, filename = "graph.png"):
 
 # degree_seq
 def process_graph(M):
+  """
+  Processes the graph
+  Param M: sequence of natural numbers
+  Return: list of edges
+  """
   if not is_graphical_graph(M): return None
 
   edges=[]
@@ -35,6 +46,12 @@ def process_graph(M):
     seq.sort(reverse=True, key=lambda x: x.n)
 
 def randomize_graph(A, number_of_iteration = 10): 
+  """
+  Randomizes graphical graph
+  Param A: sequence of natural numbers
+  Param number_of_iteration: number of randomization iterations
+  Return: list of randomized edges
+  """
   edges = process_graph(A)
   if edges is None: return None
 
