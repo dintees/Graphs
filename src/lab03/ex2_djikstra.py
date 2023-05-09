@@ -38,8 +38,8 @@ def find_neighbour(ind, edges):
 
     return neighbours
 
-def dijkstra(n, start_node):
-    A, edges, edgesWithWeight = generate_random_connected_graph_with_weight(n)
+def dijkstra(edgesWithWeight, n, start_node):
+    """Nodes start at 1"""
 
     ds, ps = init(n, start_node)
     S = []
@@ -83,3 +83,14 @@ def seq_dijkstra(ds, ps, node):
                 seq[i].append(parent)      
     return seq
     
+
+
+if __name__ == "__main__":
+    n = 9
+    start_node = 4
+
+    ds, ps, edgesWithWeight = dijkstra(n, start_node)
+    print(ds, ps)
+    seq = seq_dijkstra(ds, ps, start_node)
+    display_dijkstra(seq, ds)
+    draw_graph(n, edgesWithWeight)

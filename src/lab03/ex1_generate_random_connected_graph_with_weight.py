@@ -182,9 +182,9 @@ def generate_random_connected_graph_with_weight(amountVertices):
   while (check_for_complement(edges, A) == False):
     A, edges = generate_random_graphical(amountVertices)
   
-  edgesWithweight = add_weight(edges)
-  edgesWithWeightNetworkx = [(edge[0][0], edge[0][1], {"weight": edge[1]}) for edge in edgesWithweight  ]
-  return A, edges, edgesWithWeightNetworkx 
+  edgesWithWeight = add_weight(edges)
+  edgesWithWeightNetworkx = [(edge[0][0], edge[0][1], {"weight": edge[1]}) for edge in edgesWithWeight  ]
+  return A, edges, edgesWithWeight, edgesWithWeightNetworkx 
   
 ##############################################################################
 #jako argument funkcja generate_random_connected_graph_with_weight() przyjmuje
