@@ -4,6 +4,7 @@
 #include <fstream>
 #include <string>
 #include <algorithm>
+#include <ctime>
 
 #define IT_MAX 5000
 

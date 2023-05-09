@@ -14,6 +14,9 @@ from src.lab03.Edge import Edge
 from src.lab03.ex2_djikstra import dijkstra
 from src.lab03.ex5_prim import prim
 
+from src.lab04.Vertice import Vertice
+from src.lab04.ex2_Kosaraju_algorithm import kosaraju
+
 # from src.lab05.ex1_generate_random_flow_network import generate_random_flow_network
 
 def pp(*args):
@@ -96,11 +99,30 @@ def main(lab_num):
         print("Minimal spanning tree:", minimal_spanning_tree) # text representation
         draw_graph(12, [[i.begin, i.end] for i in spanning_tree_edges], "lab03_ex05") # graphical interpretation
 
+    # elif lab_num == 4:
+        # 1.
+        
+        # 2.
+        # example from presentation
+        # neighbourhood_list = [
+        #     Vertice(1, [7]),
+        #     Vertice(2, [1, 3, 6, 7]),
+        #     Vertice(3, [2, 6]),
+        #     Vertice(4, [3, 5]),
+        #     Vertice(5, [3]),
+        #     Vertice(6, [5]),
+        #     Vertice(7, [1])
+        # ]
+        # nodes = [i.number for i in neighbourhood_list]
+        # comp = kosaraju(nodes, neighbourhood_list)
+        # for i in range(max(comp)):
+        #     print(f'Silna spojna skladowa {i+1}: {[nodes[j] for j in range(len(nodes)) if comp[j] == (i + 1) ]}')
 
     # elif lab_num == 5:
     #     nodes, edges = generate_random_flow_network(3)
     #     print(edges)
     #     Graph.showWeightedDirectedGraph(edges)
+
 
     else:
         print("There is no laboratories with the given number.")
