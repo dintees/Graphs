@@ -5,30 +5,23 @@ import argparse
 from src.lab03.ex1_generate_random_connected_graph_with_weight import generate_random_connected_graph_with_weight
 
 from src.lab01.Graph import Graph
-<<<<<<< HEAD
-from src.lab02.ex6_has_hamiltionian_cycle import has_hamiltonian_cycle 
-from src.lab03.ex3_find_shortest_paths_matrix import find_shortest_paths_matrix
-from src.lab03.ex4_find_center_node import find_center_node
-from src.lab05.ex1_generate_random_flow_network import generate_random_flow_network
-from src.lab04.ex1_generate_random_digraph import generate_random_digraph
-from src.lab04.ex2_kosarajiu import kosaraju
-=======
 
 from src.lab02.ex1_is_graphical_graph import is_graphical_graph
 from src.lab02.ex2_randomize_graph import draw_graph, process_graph, randomize_graph
-from src.lab02.ex3_findGraphComponent import draw_graph_colorized, findGraphComponent
 from src.lab02.ex4_Eulerian_graph import random_eulerian_graph
+from src.lab02.ex5_make_k_regular import make_k_regular
 from src.lab02.ex6_has_hamiltionian_cycle import has_hamiltonian_cycle
 
 from src.lab03.Edge import Edge
 from src.lab03.ex2_djikstra import dijkstra
 from src.lab03.ex5_prim import prim
+from src.lab03.ex4_find_center_node import find_center_node
 
-# from src.lab04.Vertice import Vertice
-# from src.lab04.ex2_Kosaraju_algorithm import kosaraju
+from src.lab04.Vertice import Vertice
+from src.lab04.ex2_Kosaraju_algorithm import kosaraju
+from src.lab04.ex1_generate_random_digraph import generate_random_digraph
 
 # from src.lab05.ex1_generate_random_flow_network import generate_random_flow_network
->>>>>>> 90ff0bc40e8b4ff28c9adb1a4b5cfb66ac28d24c
 
 def pp(*args):
     pprint(*args, compact=False, width=150)
@@ -79,18 +72,7 @@ def main(lab_num):
             draw_graph(len(A), edges, "lab02_ex02")
 
         # 3.
-        nodes = 9
-        edges = [(0, 1), (0, 2), (0, 3), (0, 4), (1,2), (1, 3), (2, 4), (5, 6), (7,8)]
-        #edges = [(1, 2), (1, 3), (1, 4), (1, 5), (2,3), (2, 4), (3, 5), (6, 7), (8,9)]
-        #tableOfContents = [(1,1),(2,1),(3,1),(4,1),(5,1),(6,2),(7,2)]
-        tableOfComponents, greatest, everyComponent = findGraphComponent(nodes,edges)
-        print("Lista wszystkich spójnych składowych: ")
-        for el in everyComponent:
-            print(el)
-  
-        print("Największa spójna składowa: ")
-        print(greatest)
-        draw_graph_colorized(nodes, edges, tableOfComponents, "lab02_ex03")
+        # *** TODO ***
 
         # 4.
         # *** TODO - printing the Euler cycle ***
@@ -106,7 +88,6 @@ def main(lab_num):
         print(has_hamiltonian_cycle(adjacency_list))
 
     elif lab_num == 3:
-<<<<<<< HEAD
         n = 5
         # find_shortest_path_matrix(4)
         _, _, edgesWithWeight, _ = generate_random_connected_graph_with_weight(5) 
@@ -119,7 +100,6 @@ def main(lab_num):
         print(res)
 
     
-=======
         # ...
 
         # dijkstra()
@@ -153,7 +133,6 @@ def main(lab_num):
         # comp = kosaraju(nodes, neighbourhood_list)
         # for i in range(max(comp)):
         #     print(f'Silna spojna skladowa {i+1}: {[nodes[j] for j in range(len(nodes)) if comp[j] == (i + 1) ]}')
->>>>>>> 90ff0bc40e8b4ff28c9adb1a4b5cfb66ac28d24c
 
     # elif lab_num == 5:
     #     nodes, edges = generate_random_flow_network(3)
@@ -161,6 +140,8 @@ def main(lab_num):
     #     Graph.showWeightedDirectedGraph(edges)
 
 
+    elif lab_num == 66:
+        print(make_k_regular(5, 4))
     else:
         print("There is no laboratories with the given number.")
 
