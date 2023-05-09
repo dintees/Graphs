@@ -7,7 +7,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def draw_graph(nodes, edges, tableOfContents):
+def draw_graph_colorized(nodes, edges, tableOfContents, filename="graph.png"):
+  plt.figure()
   G = nx.Graph()
   nx.circular_layout(G)
   G.add_nodes_from(range(0, nodes))
@@ -15,11 +16,11 @@ def draw_graph(nodes, edges, tableOfContents):
   nodes_pos = nx.circular_layout(G)
   #nx.draw(G=G, with_labels=True, pos=nodes_pos)
   #plt.show()
-  color_map = []    
+  color_map = []
   for ncontent in tableOfContents:
     color_map.append(ncontent[1])
   nx.draw(G=G, node_color=color_map, pos=nodes_pos,with_labels=True)
-  plt.show()
+  plt.savefig(filename)
 
 def neighbourList(node, edges):
   list = []
@@ -85,18 +86,4 @@ def findGraphComponent(nodes, edges):
   for el in comp:
     tuple = (el[1], el[0])
     tableOfComponents.append(tuple)
-  return tableOfComponents, greatestComponentList, wholeCompList      
-  
-if __name__ == "__main__":
-  nodes = 9
-  edges = [(0, 1), (0, 2), (0, 3), (0, 4), (1,2), (1, 3), (2, 4), (5, 6), (7,8)]
-  #edges = [(1, 2), (1, 3), (1, 4), (1, 5), (2,3), (2, 4), (3, 5), (6, 7), (8,9)]
-  #tableOfContents = [(1,1),(2,1),(3,1),(4,1),(5,1),(6,2),(7,2)]
-  tableOfComponents, greatest, everyComponent = findGraphComponent(nodes,edges)
-  print("Lista wszystkich spójnych składowych: ")
-  for el in everyComponent:
-    print(el)
-  
-  print("Największa spójna składowa: ")
-  print(greatest)
-  draw_graph(nodes, edges, tableOfComponents)
+  return tableOfComponents, greatestComponentList, wholeCompList   
