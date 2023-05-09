@@ -39,7 +39,6 @@ def random_eulerian_graph(n):
 
 def find_eulerian_path(n, src_edges):
     edges = copy.deepcopy(src_edges) 
-    print(edges)
     nodes = [0 for _ in range(n)]
 
     for edge in edges:

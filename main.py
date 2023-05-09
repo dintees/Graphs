@@ -87,7 +87,6 @@ def main(lab_num):
         draw_graph_colorized(nodes, edges, tableOfComponents, "lab02_ex03")
 
         # 4.
-        # *** TODO - printing the Euler cycle ***
         n = 8
         edges = random_eulerian_graph(n)
         eulerian_path = find_eulerian_path(n, edges)
