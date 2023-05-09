@@ -110,13 +110,11 @@ def main(lab_num):
         n = 5
         start_node = 4
 
-        print(edgesWithWeight)
-
         ds, ps, edgesWithWeight = dijkstra(edgesWithWeight, n, start_node)
         print(ds, ps)
         seq = seq_dijkstra(ds, ps, start_node)
         display_dijkstra(seq, ds)
-        draw_graph(n, edgesWithWeight)
+        draw_graph_with_weights(n, edgesWithWeight, "lab03_ex02")
 
         #3.
         distance_matrix = find_shortest_paths_matrix(edgesWithWeight, n)
