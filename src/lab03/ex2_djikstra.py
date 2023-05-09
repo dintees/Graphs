@@ -1,4 +1,4 @@
-from .ex1_generate_random_connected_graph_with_weight import generate_random_connected_graph_with_weight, draw_graph
+from .ex1_generate_random_connected_graph_with_weight import generate_random_connected_graph_with_weight, draw_graph_with_weights
 from math import inf
 import numpy as np
 import time
@@ -83,14 +83,3 @@ def seq_dijkstra(ds, ps, node):
                 seq[i].append(parent)      
     return seq
     
-
-
-if __name__ == "__main__":
-    n = 9
-    start_node = 4
-
-    ds, ps, edgesWithWeight = dijkstra(n, start_node)
-    print(ds, ps)
-    seq = seq_dijkstra(ds, ps, start_node)
-    display_dijkstra(seq, ds)
-    draw_graph(n, edgesWithWeight)

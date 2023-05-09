@@ -9,13 +9,13 @@ from src.lab01.Graph import Graph
 from src.lab02.ex1_is_graphical_graph import is_graphical_graph
 from src.lab02.ex2_randomize_graph import draw_graph, process_graph, randomize_graph
 from src.lab02.ex4_Eulerian_graph import random_eulerian_graph
-from src.lab02.ex5_make_k_regular import make_k_regular
+from src.lab02.ex5_make_k_regular import generate_k_regular_graph
 from src.lab02.ex6_has_hamiltionian_cycle import has_hamiltonian_cycle
 
 from src.lab03.Edge import Edge
-from src.lab03.ex2_djikstra import dijkstra
+# from src.lab03.ex2_djikstra import dijkstra
+from src.lab03.ex4_find_center_node import find_center_node_and_minimax
 from src.lab03.ex5_prim import prim
-from src.lab03.ex4_find_center_node import find_center_node
 
 from src.lab04.Vertice import Vertice
 from src.lab04.ex2_Kosaraju_algorithm import kosaraju
@@ -72,7 +72,8 @@ def main(lab_num):
             draw_graph(len(A), edges, "lab02_ex02")
 
         # 3.
-        # *** TODO ***
+        edges = generate_k_regular_graph(6, 3)
+        draw_graph(5, edges, "lab03_ex03" )
 
         # 4.
         # *** TODO - printing the Euler cycle ***
@@ -90,8 +91,9 @@ def main(lab_num):
     elif lab_num == 3:
         n = 5
         # find_shortest_path_matrix(4)
-        _, _, edgesWithWeight, _ = generate_random_connected_graph_with_weight(5) 
-        find_center_node(edgesWithWeight, 5)
+        # _, _, edgesWithWeight = generate_random_connected_graph_with_weight(5) 
+        # find_center_node(edgesWithWeight, 5)
+
     
     elif lab_num == 4:
 
@@ -141,7 +143,7 @@ def main(lab_num):
 
 
     elif lab_num == 66:
-        print(make_k_regular(5, 4))
+        print(generate_k_regular_graph(6, 4))
     else:
         print("There is no laboratories with the given number.")
 
