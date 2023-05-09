@@ -34,7 +34,7 @@ def process_graph(M):
   A = copy.deepcopy(M)
   A.sort(reverse=True)
   seq = [Vertice(A[i], i+1) for i,v in enumerate(A)]
-  print(seq)
+  # print(seq)
   while True:
     if sum(i.n for i in seq) == 0:
       return edges

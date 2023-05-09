@@ -1,54 +1,15 @@
 #################################ZESTAW 3 ZADANIE 1 - ZERO INDEXING###########################################################
-import copy
 import random
 import networkx as nx
 import matplotlib.pyplot as plt
 import random
 
-class Vertice():
-  def __init__(self, n, i):
-    self.n = n
-    self.i = i
+from src.lab02.ex1_is_graphical_graph import is_graphical_graph
+from src.lab02.ex2_randomize_graph import process_graph
 
-  def __repr__(self):
-    return f'[{self.i}]: {self.n}'
 
-def is_graphical_graph(M):
-  A = copy.deepcopy(M)
-  n = len(A)
-  if len(A) <= 1:
-    #print("Not enough vertices")
-    return False
-  odd = sum(1 for i in A if i%2)
-  if odd % 2: 
-    #print("Wrong number of odd degrees")
-    return False
-  
-  A.sort(reverse=True)
-
-  while True:
-    # All elements are equal to 0
-    if check_elements(A): return True
-
-    if A[0] >= n or all_elements_greater_than_zero(A): return False
-
-    for i in range(1, A[0] + 1):
-      A[i] = A[i] - 1
-    A[0] = 0
-    A.sort(reverse=True)
-
-def check_elements(A):
-  for i in A:
-    if i != 0:
-      return False
-  return True
-
-def all_elements_greater_than_zero(A):
-  for i in A:
-    if i < 0: return True
-  return False
-
-def draw_graph(nodes, edgesWithWeight):
+def draw_graph_with_weights(nodes, edgesWithWeight, filename = "graph.png"):
+  plt.figure()
   edges = []
   weight = []
   for el in edgesWithWeight:
@@ -60,35 +21,16 @@ def draw_graph(nodes, edgesWithWeight):
     el = (edges[i][0], edges[i][1], weight[i])
     weightedEdges.append(el)
 
-  
   G = nx.Graph()
   nx.circular_layout(G)
-  G.add_nodes_from(range(0, nodes))
+  G.add_nodes_from(range(1, nodes))
   #G.add_edges_from(edges)
   G.add_weighted_edges_from(weightedEdges)
   nodes_pos = nx.circular_layout(G)
   nx.draw(G=G, with_labels=True, pos=nodes_pos)
   weight = nx.get_edge_attributes(G, 'weight')
   nx.draw_networkx_edge_labels(G, pos=nodes_pos, edge_labels=weight)
-  plt.show()
-
-def process_graph(M):
-  if not is_graphical_graph: return None
-
-  edges=[]
-  A = copy.deepcopy(M)
-  A.sort(reverse=True)
-  seq = [Vertice(A[i], i) for i,v in enumerate(A)]
-  #print(seq)
-  while True:
-    if sum(i.n for i in seq) == 0:
-      return edges
-
-    for i in range(1, seq[0].n + 1):
-      seq[i].n -= 1
-      edges.append((seq[0].i, seq[i].i))
-    seq[0].n = 0
-    seq.sort(reverse=True, key=lambda x: x.n)
+  plt.savefig(filename)
 
 
 def neighbourList(node, edges):
@@ -114,7 +56,7 @@ def DFSRecursiveSearch(ncomponent, verticleIndex, comp, edges):
 def check_for_complement(edges, A):
   nodes = len(A)
   ncomponent = 0
-  vertices = list(range(0,nodes))
+  vertices = list(range(1,nodes+1))
   comp = []
   greatestComponentList = []
   wholeCompList = []
@@ -150,7 +92,6 @@ def generate_random_graphical(amountVertices):
       A.clear()
       for i in range(1,amountVertices+1):
         A.append(random.randint(1, amountVertices - 1))
- 
   edges = process_graph(A)  
   return A, edges
 
@@ -174,7 +115,7 @@ def add_weight(edges):
 def generate_random_connected_graph_with_weight(amountVertices):
   if(amountVertices < 1):
     print("Wrong number of vertices")
-    return None
+    return [], [], []
 
   random.seed()
   A = []
@@ -182,15 +123,5 @@ def generate_random_connected_graph_with_weight(amountVertices):
   while (check_for_complement(edges, A) == False):
     A, edges = generate_random_graphical(amountVertices)
   
-  edgesWithWeight = add_weight(edges)
-  edgesWithWeightNetworkx = [(edge[0][0], edge[0][1], {"weight": edge[1]}) for edge in edgesWithWeight  ]
-  return A, edges, edgesWithWeight, edgesWithWeightNetworkx 
-  
-##############################################################################
-#jako argument funkcja generate_random_connected_graph_with_weight() przyjmuje
-#liczbe wezlow 
-#losuje spojny, prosty graf w wagami krawedzi
-
-if __name__ == "__main__":
-  A, edges, edgesWithWeight = generate_random_connected_graph_with_weight(6)
-  draw_graph(len(A), edgesWithWeight)
+  edgesWithweight = add_weight(edges)
+  return A, edges, edgesWithweight

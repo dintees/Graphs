@@ -1,5 +1,6 @@
 import numpy as np
 
+
 def get_switched_edges(edgeA, edgeB):
     if edgeA[0] == edgeB[0] and edgeA[1] == edgeB[1]:
         return edgeA, edgeB
