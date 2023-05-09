@@ -8,7 +8,7 @@ from src.lab01.Graph import Graph
 from src.lab02.ex1_is_graphical_graph import is_graphical_graph
 from src.lab02.ex2_randomize_graph import draw_graph, process_graph, randomize_graph
 from src.lab02.ex3_findGraphComponent import draw_graph_colorized, findGraphComponent
-from src.lab02.ex4_Eulerian_graph import random_eulerian_graph
+from src.lab02.ex4_Eulerian_graph import random_eulerian_graph, find_eulerian_path
 from src.lab02.ex5_make_k_regular import make_k_regular
 from src.lab02.ex6_has_hamiltionian_cycle import has_hamiltonian_cycle
 
@@ -90,6 +90,8 @@ def main(lab_num):
         # *** TODO - printing the Euler cycle ***
         n = 8
         edges = random_eulerian_graph(n)
+        eulerian_path = find_eulerian_path(n, edges)
+        print("Cykl Eulera: "+str(eulerian_path))
         draw_graph(n, edges, "lab02_ex04")
 
         # 5.
