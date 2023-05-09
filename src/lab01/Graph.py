@@ -116,9 +116,9 @@ class Graph():
         return edges
 
     # !pip install networkx
-    def showGraph(representation, repr_type):
+    def showGraph(representation, repr_type, filename = "graph.png"):
         """Shows graph"""
-
+        
         adjacency_list = None
         if repr_type == "list":
             adjacency_list = representation
@@ -144,7 +144,7 @@ class Graph():
         nx.draw_networkx_edges(g, pos, width=2.0, edge_color="black")
         p.tight_layout()
 
-        plt.savefig("temp.png")
+        plt.savefig(filename)
     
     def showWeightedGraph(weightedEges):
         g = nx.Graph(weightedEges)
