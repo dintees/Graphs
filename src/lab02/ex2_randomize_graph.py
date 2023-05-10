@@ -56,13 +56,17 @@ def randomize_graph(A, number_of_iteration = 10):
   if edges is None: return None
 
   range_edges = list(range(len(edges)))
+  counter = 1
   for i in range(number_of_iteration):
+    counter = 0
     e1 = (-1, -1)
     e2 = (-1, -1)
     while e1 == (-1, -1) or e1 in edges or (e1[1], e1[0]) in edges or e2 in edges or (e2[1], e2[0]) in edges or e1[0] == e1[1] or e2[0] == e2[1]:
       n1, n2 = random.sample(range_edges, k=2) # a = edges[n1][0]
       e1 = (edges[n1][0], edges[n2][1])
       e2 = (edges[n1][1], edges[n2][0])
+      if counter > 1000: return None
+      counter += 1
 
     # printing transformations:
     # print(edges[n1], edges[n2], end=' -> ') # old
