@@ -9,11 +9,9 @@ def is_graphical_graph(M):
   A = copy.deepcopy(M)
   n = len(A)
   if len(A) <= 1:
-    print("Not enough vertices")
     return False
   odd = sum(1 for i in A if i%2)
   if odd % 2: 
-    print("Wrong number of odd degrees")
     return False
   
   A.sort(reverse=True)

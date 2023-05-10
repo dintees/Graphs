@@ -1,121 +1,269 @@
-import numpy as np
 from pathlib import Path
 from pprint import pprint 
 import argparse
-from src.lab03.ex1_generate_random_connected_graph_with_weight import generate_random_connected_graph_with_weight
+import os
+from pathlib import Path
 
 from src.lab01.Graph import Graph
 
 from src.lab02.ex1_is_graphical_graph import is_graphical_graph
 from src.lab02.ex2_randomize_graph import draw_graph, process_graph, randomize_graph
+from src.lab02.ex3_findGraphComponent import findGraphComponent
 from src.lab02.ex4_Eulerian_graph import random_eulerian_graph
 from src.lab02.ex5_make_k_regular import generate_k_regular_graph
 from src.lab02.ex6_has_hamiltionian_cycle import has_hamiltonian_cycle
 
 from src.lab03.Edge import Edge
-# from src.lab03.ex2_djikstra import dijkstra
+from src.lab03.ex1_generate_random_connected_graph_with_weight import generate_random_connected_graph_with_weight
+from src.lab03.ex2_djikstra import dijkstra
+from src.lab03.ex3_find_shortest_paths_matrix import find_shortest_paths_matrix
 from src.lab03.ex4_find_center_node import find_center_node_and_minimax
 from src.lab03.ex5_prim import prim
 
-from src.lab04.Vertice import Vertice
-from src.lab04.ex2_Kosaraju_algorithm import kosaraju
-from src.lab04.ex1_generate_random_digraph import generate_random_digraph
+# from src.lab04.Vertice import Vertice
+# from src.lab04.ex2_Kosaraju_algorithm import kosaraju
+# from src.lab04.ex1_generate_random_digraph import generate_random_digraph
 
-# from src.lab05.ex1_generate_random_flow_network import generate_random_flow_network
 
 def pp(*args):
     pprint(*args, compact=False, width=150)
 
 def main(lab_num):
+    os.makedirs("figures", exist_ok=True)
     incidence_matrix  = Graph.read_from_file(Path("src", "lab01", "incidence.txt"))
     adjacency_matrix = Graph.read_from_file(Path("src", "lab01", "adjacency.txt"))
     adjacency_list = Graph.read_from_file(Path("src", "lab01", "list.txt"))
 
     if lab_num == 1:
-        # 1.
-        pp(Graph.adjacency_list_to_adjacency_matrix(adjacency_list))
-        pp(Graph.incidence_matrix_to_adjacency_matrix(incidence_matrix))
-        pp(Graph.incidence_matrix_to_adjacency_list(incidence_matrix))
-        pp(Graph.adjacency_matrix_to_adjacency_list(adjacency_matrix))
-        pp(Graph.adjacency_list_to_incidence_matrix(adjacency_list))
-        pp(Graph.adjacency_matrix_to_incidence_matrix(adjacency_matrix))
+        try:
+
+            print(f"1.1a adjacency_list_to_adjacency_matrix(adjacency_list={adjacency_list})")
+            print(f"Output:")
+            pp(Graph.adjacency_list_to_adjacency_matrix(adjacency_list))
+
+            print(f"\n1.1b incidence_matrix_to_adjacency_matrix(incidence_matrix={incidence_matrix})")
+            print(f"Output:")
+            pp(Graph.incidence_matrix_to_adjacency_matrix(incidence_matrix))
+
+            print(f"\n1.1c incidence_matrix_to_adjacency_list(incidence_matrix={incidence_matrix})")
+            print(f"Output:")
+            pp(Graph.incidence_matrix_to_adjacency_list(incidence_matrix))
+
+            print(f"\n1.1d adjacency_matrix_to_adjacency_list(adjacency_matrix={adjacency_matrix})")
+            print(f"Output:")
+            pp(Graph.adjacency_matrix_to_adjacency_list(adjacency_matrix))
+
+            print(f"\n1.1e adjacency_list_to_incidence_matrix(adjacency_list={adjacency_list})")
+            print(f"Output:")
+            pp(Graph.adjacency_list_to_incidence_matrix(adjacency_list))
+
+            print(f"\n1.1f adjacency_matrix_to_incidence_matrix(adjacency_matrix={adjacency_matrix})")
+            print(f"Output:")
+            pp(Graph.adjacency_matrix_to_incidence_matrix(adjacency_matrix))
+        except Exception as e:
+            print("Exercise 1.1 failed", e)
 
         # 2.
-        Graph.showGraph(incidence_matrix, repr_type="incidence", filename="lab02_ex01_incidence")
-        Graph.showGraph(adjacency_matrix, repr_type="adjacency", filename="lab02_ex01_adjacency")
-        Graph.showGraph(adjacency_list, repr_type="list", filename="lab02_ex01_list")
+        try:
+            Graph.showGraph(incidence_matrix, repr_type="incidence", filename="figures/lab01_ex02a_incidence")
+            Graph.showGraph(adjacency_matrix, repr_type="adjacency", filename="figures/lab01_ex02b_adjacency")
+            Graph.showGraph(adjacency_list, repr_type="list", filename="figures/lab01_ex02c_list")
+        except Exception as e:
+            print("Exercise 1.2 failed", e)
 
         # 3.
-        # G(n, l)
-        random_graph1 = Graph.randomNE(4, 5)
-        draw_graph(3, random_graph1, "lab01_ex03a")
-
-        # G(n, p)
-        random_graph2 = Graph.randomNP(10, 1)
-        draw_graph(9, random_graph2, "lab01_ex03b")
-    
-    elif lab_num == 2:
-        # 1.
-        A = [1, 3, 3, 7, 2, 3, 1,] # false
-        print("Graphical graph? : ", is_graphical_graph(A))
-        
-        A = [1, 3, 2, 3, 2, 4, 1,] # true
-        print("Graphical graph? : ", is_graphical_graph(A))
-
-        edges = process_graph(A)
-        if edges is not None:
-            draw_graph(len(A), edges, "lab02_ex01")
-
-        # 2.
-        edges = randomize_graph(A, number_of_iteration=10)
-        if edges is not None:
-            draw_graph(len(A), edges, "lab02_ex02")
-
-        # 3.
-        edges = generate_k_regular_graph(6, 3)
-        draw_graph(5, edges, "lab03_ex03" )
+        node_count = 4
+        edge_count = 5
+        print(f"\nrandom_graph(node_count={node_count}, edge_count={edge_count})")
+        try:
+            random_graph1 = Graph.randomNE(node_count, edge_count)
+            print(f"Output:\n {random_graph1}")
+            draw_graph(3, random_graph1, "figures/lab01_ex03a_random_graph_nodes_edges")
+        except Exception as e:
+            print("Exercise 1.3 failed", e)
 
         # 4.
-        # *** TODO - printing the Euler cycle ***
+        node_count = 10
+        probability = 0.5
+        print(f"\nrandom_graph(node_count={node_count}, probability={probability})")
+        try:
+            random_graph2 = Graph.randomNP(node_count, probability)
+            print(f"Output:\n {random_graph2}")
+            draw_graph(9, random_graph2, "figures/lab01_ex03b_random_graph_nodes_probability")
+        except Exception as e:
+            print("Exercise 1.4 failed", e)
+    
+
+    elif lab_num == 2:
+        # 1.
+        degrees = [1, 3, 3, 7, 2, 3, 1,] # false
+        print(f"\n2.1a is_graphical({degrees}")
+        try:
+            print(f"Output: {is_graphical_graph(degrees)}")
+            edges = process_graph(degrees)
+            if edges is not None:
+                draw_graph(len(degrees), edges, "figures/lab02_ex01_graphical_graph")
+        except Exception as e:
+            print("Exercise 2.1 failed", e)
+
+        degrees = [1, 3, 2, 3, 2, 4, 1,]
+        print(f"\n2.1b is_graphical({degrees}")
+        try:
+            print(f"Output: {is_graphical_graph(degrees)}")
+            edges = process_graph(degrees)
+            if edges is not None:
+                draw_graph(len(degrees), edges, "figures/lab02_ex01_graphical_graph")
+        except Exception as e:
+            print("Exercise 2.1 failed", e)
+
+
+        # 2.
+        degrees = [1, 3, 2, 3, 2, 4, 1,]
+        iterations = 10
+        print(f"\n2.2 randomized_graph(degrees={degrees}, number_of_iterations={iterations})")
+        try:
+            edges = randomize_graph(degrees, number_of_iteration=iterations)
+            print(f"Output: {edges}")
+            if edges is not None:
+                draw_graph(len(degrees), edges, "figures/lab02_ex02_randomized_graph")
+        except Exception as e:
+            print("Exercise 2.2 failed:", e)
+
+
+        # 3.
+        nodes_count = 5
+        degrees = [1, 3, 2, 3, 2, 4, 1,]
+        edges = process_graph(degrees) 
+        print(f"\n2.3 find_graph_component(nodes={nodes_count}, edges={edges})")
+        try:
+            _, _, all_components= findGraphComponent(nodes=nodes_count, edges=edges)
+            draw_graph(sum([len(lst) for lst in all_components]), edges, "figures/lab02_ex03_component_graph")
+            print(f"Output: {all_components}")
+        except Exception as e:
+            print("Exercise 2.3 failed:", e)
+
+
+        # 4.
         n = 8
-        edges = random_eulerian_graph(n)
-        draw_graph(n, edges, "lab02_ex04")
+        print(f"\n2.4 random_eulerian_graph(n={n})")
+        try:
+            edges = random_eulerian_graph(n)
+            print(f"Output: {edges}")
+            draw_graph(n, edges, "figures/lab02_ex04_random_eulerian")
+        except Exception as e:
+            print("Exercise 2.4 failed:", e)
+
 
         # 5.
-        edges = Graph.randomNE(5, 8)
-        adjacency_list = Graph.edges_to_adjacency_list(edges)
+        vertices_count = 6
+        degree_count = 3
+        print(f"\n2.5 generate_k_regular_graph(vertices={vertices_count}, degrees={degree_count})")
+        try:
+            edges = generate_k_regular_graph(vertices_count, degree_count)
+            print(f"Output: {edges}")
+            draw_graph(5, edges, "figures/lab02_ex05_k_regular_graph" )
+        except Exception as e:
+            print("Exercise 2.5 failed:", e)
+
 
         # 6.
-        print(has_hamiltonian_cycle(adjacency_list))
+        adjacency_list = adjacency_list
+        print(f"\n2.6 has_hamilton_cycle(adjacency_list={adjacency_list})")
+        try:
+            res = has_hamiltonian_cycle(adjacency_list)
+            print(f"Output: {res}")
+        except Exception as e:        
+            print("Exercise 2.6 failed:", e)
 
     elif lab_num == 3:
-        n = 5
-        # find_shortest_path_matrix(4)
-        # _, _, edgesWithWeight = generate_random_connected_graph_with_weight(5) 
-        # find_center_node(edgesWithWeight, 5)
 
-    
-    elif lab_num == 4:
+        # 1.
+        vertices_count=5
+        print(f"\n3.1 generate_random_connected_graph_with_weight(vertices={vertices_count})")
+        try:
+            _, _, edgesWithWeight= generate_random_connected_graph_with_weight(5) 
+            print(f"Output: {edgesWithWeight}")
+            Graph.showWeightedGraph(edgesWithWeight, filename="figures/lab03_ex01_random_weighted_graph")
+        except Exception as e:
+            print("Exercise 3.1 failed:", e)
 
-        dg = generate_random_digraph(5, 0.5)
-        res = kosaraju(dg.nodes, dg.edges)
-        print(res)
 
-    
-        # ...
+        # 2.
+        nodes_count = 5
+        start_node = 1
+        _, _, edgesWithWeight= generate_random_connected_graph_with_weight(nodes_count) 
+        print(f"\n3.2 dijkstra(edges_with_weight={edgesWithWeight}, nodes_count={nodes_count}, start_node={start_node})")
+        try:
+            distances, _, _= dijkstra(edgesWithWeight, nodes_count, start_node)
+            print(f"Output: {distances}")
+            Graph.showWeightedGraph(edgesWithWeight, filename="figures/lab03_ex02_dijkstra")
+        except Exception as e:
+            print("Exercise 3.2 failed:", e)
 
-        # dijkstra()
-
-        # ...
         
+        # 3.
+        nodes_count = 5
+        _, _, edgesWithWeight= generate_random_connected_graph_with_weight(nodes_count) 
+        print(f"\n3.3 find_shortest_paths_matrix(edges_with_weight={edgesWithWeight}, nodes_count={nodes_count})")
+        try:
+            matrix = find_shortest_paths_matrix(edgesWithWeight, nodes_count)
+            Graph.showWeightedGraph(edgesWithWeight, filename="figures/lab03_ex03_shortest_path_matrix")
+            print(f"Output: {matrix}")
+        except Exception as e:
+            print("Exercise 3.3 failed:", e)
+
+
+        # 4.
+        nodes_count = 5
+        _, _, edgesWithWeight= generate_random_connected_graph_with_weight(nodes_count) 
+        print("\n3.4 find_center_node()")
+        try:
+            res = find_center_node_and_minimax(edgesWithWeight, nodes_count)
+            Graph.showWeightedGraph(edgesWithWeight, filename="figures/lab03_ex04_find_center_node_and_minimax")
+            print(f"Output: center: {res[0]}, minmax: {res[1]}")
+        except Exception as e:
+            print("Exercise 3.4 failed:", e)
+        
+
         # 5.
         nodes = list(range(1, 13))
-        edges = [Edge(1, 2, 3), Edge(1, 5, 9), Edge(1, 3, 2), Edge(2, 5, 4), Edge(3, 5, 6), Edge(2, 4, 2), Edge(4, 7, 3), Edge(5, 7, 1), Edge(5, 8, 2), Edge(8, 10, 5), Edge(7, 10, 5), Edge(8, 12, 9), Edge(10, 12, 5), Edge(3, 6, 9), Edge(6, 8, 1), Edge(6, 9, 2), Edge(9, 11, 2), Edge(8, 11, 6), Edge(11, 12, 3),]
+        edges = [Edge(1, 2, 3), Edge(1, 5, 9), Edge(1, 3, 2), Edge(2, 5, 4), Edge(3, 5, 6)
+                 , Edge(2, 4, 2), Edge(4, 7, 3), Edge(5, 7, 1), Edge(5, 8, 2), Edge(8, 10, 5)
+                 , Edge(7, 10, 5), Edge(8, 12, 9), Edge(10, 12, 5), Edge(3, 6, 9), Edge(6, 8, 1)
+                 , Edge(6, 9, 2), Edge(9, 11, 2), Edge(8, 11, 6), Edge(11, 12, 3),]
+        print(f"\n3.5 prim(nodes={nodes}, edges={edges})")
+        try:
+            minimal_spanning_tree, spanning_tree_edges = prim(nodes, edges)
+            edges = [edge.get_tuple() for edge in spanning_tree_edges]
+            print(f"Output: minimal_spanning_tree={minimal_spanning_tree}, spanning_tree_edges={edges}")
+            Graph.showWeightedGraph(edges, filename="figures/lab03_ex05_prim_spanning_tree")
+        except Exception as e:
+            print("Exercise 3.5 failed:", e)
 
-        minimal_spanning_tree, spanning_tree_edges = prim(nodes, edges)
 
-        print("Minimal spanning tree:", minimal_spanning_tree) # text representation
-        draw_graph(12, [[i.begin, i.end] for i in spanning_tree_edges], "lab03_ex05") # graphical interpretation
+
+    
+    # elif lab_num == 4:
+
+        # dg = generate_random_digraph(5, 0.5)
+        # res = kosaraju(dg.nodes, dg.edges)
+        # print(res)
+
+    
+        # # ...
+
+        # # dijkstra()
+
+        # # ...
+        
+        # # 5.
+        # nodes = list(range(1, 13))
+        # edges = [Edge(1, 2, 3), Edge(1, 5, 9), Edge(1, 3, 2), Edge(2, 5, 4), Edge(3, 5, 6), Edge(2, 4, 2), Edge(4, 7, 3), Edge(5, 7, 1), Edge(5, 8, 2), Edge(8, 10, 5), Edge(7, 10, 5), Edge(8, 12, 9), Edge(10, 12, 5), Edge(3, 6, 9), Edge(6, 8, 1), Edge(6, 9, 2), Edge(9, 11, 2), Edge(8, 11, 6), Edge(11, 12, 3),]
+
+        # minimal_spanning_tree, spanning_tree_edges = prim(nodes, edges)
+
+        # print("Minimal spanning tree:", minimal_spanning_tree) # text representation
+        # draw_graph(12, [[i.begin, i.end] for i in spanning_tree_edges], "lab03_ex05") # graphical interpretation
 
     # elif lab_num == 4:
         # 1.
@@ -145,7 +293,7 @@ def main(lab_num):
     elif lab_num == 66:
         print(generate_k_regular_graph(6, 4))
     else:
-        print("There is no laboratories with the given number.")
+        print("There is no laboratory with the given number.")
 
 
 if __name__ == "__main__":

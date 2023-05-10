@@ -31,7 +31,7 @@ def generate_k_regular_graph(vertices, degree):
     edges = [[edge[0], edge[1]] for edge in edges]
 
     i = 0
-    while i < vertices * degree:
+    while i < (vertices * degree)**2:
         switch_edges(edges[random.randint(0, vertices-1)], edges[random.randint(0, vertices-1)], edges)
         i+=1
 

@@ -146,9 +146,10 @@ class Graph():
 
         plt.savefig(filename)
     
-    def showWeightedGraph(weightedEges):
-        g = nx.Graph(weightedEges)
+    def showWeightedGraph(weightedEges, filename):
+        weightedEges = [(edge[0][0], edge[0][1],{"weight": edge[1]}) for edge in weightedEges]
 
+        g = nx.Graph(weightedEges)
         p = plt.figure(randint(0, 10e10))
         p.set_size_inches(8,8)
 
@@ -162,7 +163,7 @@ class Graph():
 
         p.tight_layout()
 
-        plt.savefig("temp.png")
+        plt.savefig(filename + ".png")
     
     def showWeightedDirectedGraph(weightedDirectedEdges):
         g = nx.DiGraph()
