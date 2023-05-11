@@ -11,7 +11,7 @@ def draw_graph_colorized(nodes, edges, tableOfContents, filename="graph.png"):
   plt.figure()
   G = nx.Graph()
   nx.circular_layout(G)
-  G.add_nodes_from(range(0, nodes))
+  G.add_nodes_from(range(1, nodes+1))
   G.add_edges_from(edges)
   nodes_pos = nx.circular_layout(G)
   #nx.draw(G=G, with_labels=True, pos=nodes_pos)
@@ -47,7 +47,7 @@ def findGraphComponent(nodes, edges):
   #numer skladowej
   ncomponent = 0
   #indeksy wiercholkow
-  vertices = list(range(0,nodes))
+  vertices = list(range(1,nodes + 1))
   #comp[0] oznacza numer spojnej skladowej do ktorej nalezy 
   #wierzcholek v
   #comp[1] indeks tego wierzcholka

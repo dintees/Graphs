@@ -8,7 +8,7 @@ from src.lab01.Graph import Graph
 
 from src.lab02.ex1_is_graphical_graph import is_graphical_graph
 from src.lab02.ex2_randomize_graph import draw_graph, process_graph, randomize_graph
-from src.lab02.ex3_findGraphComponent import findGraphComponent
+from src.lab02.ex3_findGraphComponent import findGraphComponent, draw_graph_colorized
 from src.lab02.ex4_Eulerian_graph import random_eulerian_graph
 from src.lab02.ex5_make_k_regular import generate_k_regular_graph
 from src.lab02.ex6_has_hamiltionian_cycle import has_hamiltonian_cycle
@@ -131,14 +131,19 @@ def main(lab_num):
 
 
         # 3.
-        nodes_count = 5
+        nodes_count = 7
         degrees = [1, 3, 2, 3, 2, 4, 1,]
         edges = process_graph(degrees) 
         print(f"\n2.3 find_graph_component(nodes={nodes_count}, edges={edges})")
         try:
-            _, _, all_components= findGraphComponent(nodes=nodes_count, edges=edges)
-            draw_graph(sum([len(lst) for lst in all_components]), edges, "figures/lab02_ex03_component_graph")
-            print(f"Output: {all_components}")
+            tableOfComponents, greatest, everyComponent = findGraphComponent(nodes=nodes_count,edges=edges)
+            print("Lista wszystkich spójnych składowych: ")
+            for el in everyComponent:
+                print(el)
+  
+            print("Największa spójna składowa: ")
+            print(greatest)
+            draw_graph_colorized(nodes_count, edges, tableOfComponents, "figures/lab02_ex03_component_graph")
         except Exception as e:
             print("Exercise 2.3 failed:", e)
 
