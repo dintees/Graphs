@@ -24,6 +24,8 @@ from src.lab04.Vertice import Vertice
 # from src.lab04.ex1_generate_random_digraph import generate_random_digraph
 from src.lab04.ex2_Kosaraju_algorithm import kosaraju
 
+from src.lab05.ex1_generate_random_flow_network import generate_random_flow_network
+from src.lab05.ex2_ford_fulkerson import ford_fulkerson
 
 def pp(*args):
     pprint(*args, compact=False, width=150)
@@ -272,10 +274,23 @@ def main(lab_num):
         except Exception as e:
             print("Exercise 4.2 failed:", e)
 
-    # elif lab_num == 5:
-    #     nodes, edges = generate_random_flow_network(3)
-    #     print(edges)
-    #     Graph.showWeightedDirectedGraph(edges)
+    elif lab_num == 5:
+        # 1.
+        intermediate_layers = 2
+        print("\n5.1 generate_random_flow_network()")
+        try:
+            nodes, edges = generate_random_flow_network(intermediate_layers)
+            Graph.showWeightedDirectedGraph(edges, filename="figures/lab05_ex01_random_flow_network")
+        except Exception as e:
+            print("Exercise 5.1 failed:", e)
+
+        # 2.
+        print("\n5.2 ford_fulkerson()")
+        try:
+            maximum_flow = ford_fulkerson(nodes, edges)
+            print("Maximum flow: "+str(maximum_flow))
+        except Exception as e:
+            print("Exercise 5.2 failed:", e)  
 
 
     else:

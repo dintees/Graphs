@@ -1,6 +1,6 @@
-from ex1_generate_random_flow_network import generate_random_flow_network 
 import copy
 from math import inf
+from src.lab01.Graph import Graph
 
 def BFS(n, G, f): 
     neighbours = [[] for _ in range(n-1)]
@@ -55,9 +55,13 @@ def updateResedualGraph(G, edges, cf, cf_min):
 
 def ford_fulkerson(nodes, weightedEdges):
     # f - przepływ, c - przepustowość, G - krawiędzie sieci
-    f = [0 for _ in range(len(weightedEdges))]
+    # f = [0 for _ in range(len(weightedEdges))]
+
     c = [weightedEdge[2]['weight'] for weightedEdge in weightedEdges]
     G = [(weightedEdge[0], weightedEdge[1]) for weightedEdge in weightedEdges]
+    f = {}
+    for g in G:
+        f[g] = 0
 
     # cf - przepustowość sieci rezydualnej, 
     # cf_min - minimalna przepustowość rezydualna,
@@ -65,21 +69,25 @@ def ford_fulkerson(nodes, weightedEdges):
     cf = copy.deepcopy(c)
     cf_min = 0
     f_max = 0
+    it = 1
 
     while cf_min != None: 
         # szukamy krótszej ścieżki rozszerzającej (krawiędzie)
         p = BFS(len(nodes), G, cf)
+
+        Graph.showWeightedDirectedGraphWithFlow(f, weightedEdges, filename="figures/lab05_ex02_"+str(it))
+        it += 1
+
         cf_min = findCf(p, G, cf)
 
         # zwiększamy albo kasujemy przepływ wzdłuż ścieżki rozszerzającej
         if cf_min != None:
             f_max += cf_min
             for edge in p:
-                id = G.index(edge)
                 if edge in G:
-                    f[id] = f[id] + cf_min
+                    f[edge] = f[edge] + cf_min
                 else:
-                    f[id] = f[id] - cf_min  
+                    f[edge] = f[edge] - cf_min  
 
             # aktualizujemy sieć rezydualną
             cf = updateResedualGraph(G, p, cf, cf_min)
