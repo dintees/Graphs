@@ -20,9 +20,9 @@ from src.lab03.ex3_find_shortest_paths_matrix import find_shortest_paths_matrix
 from src.lab03.ex4_find_center_node import find_center_node_and_minimax
 from src.lab03.ex5_prim import prim
 
-# from src.lab04.Vertice import Vertice
-# from src.lab04.ex2_Kosaraju_algorithm import kosaraju
+from src.lab04.Vertice import Vertice
 # from src.lab04.ex1_generate_random_digraph import generate_random_digraph
+from src.lab04.ex2_Kosaraju_algorithm import kosaraju
 
 
 def pp(*args):
@@ -246,48 +246,31 @@ def main(lab_num):
             print("Exercise 3.5 failed:", e)
 
 
-
-    
-    # elif lab_num == 4:
-
+    elif lab_num == 4:
         # dg = generate_random_digraph(5, 0.5)
         # res = kosaraju(dg.nodes, dg.edges)
         # print(res)
-
-    
-        # # ...
-
-        # # dijkstra()
-
-        # # ...
         
-        # # 5.
-        # nodes = list(range(1, 13))
-        # edges = [Edge(1, 2, 3), Edge(1, 5, 9), Edge(1, 3, 2), Edge(2, 5, 4), Edge(3, 5, 6), Edge(2, 4, 2), Edge(4, 7, 3), Edge(5, 7, 1), Edge(5, 8, 2), Edge(8, 10, 5), Edge(7, 10, 5), Edge(8, 12, 9), Edge(10, 12, 5), Edge(3, 6, 9), Edge(6, 8, 1), Edge(6, 9, 2), Edge(9, 11, 2), Edge(8, 11, 6), Edge(11, 12, 3),]
-
-        # minimal_spanning_tree, spanning_tree_edges = prim(nodes, edges)
-
-        # print("Minimal spanning tree:", minimal_spanning_tree) # text representation
-        # draw_graph(12, [[i.begin, i.end] for i in spanning_tree_edges], "lab03_ex05") # graphical interpretation
-
-    # elif lab_num == 4:
         # 1.
         
         # 2.
-        # example from presentation
-        # neighbourhood_list = [
-        #     Vertice(1, [7]),
-        #     Vertice(2, [1, 3, 6, 7]),
-        #     Vertice(3, [2, 6]),
-        #     Vertice(4, [3, 5]),
-        #     Vertice(5, [3]),
-        #     Vertice(6, [5]),
-        #     Vertice(7, [1])
-        # ]
-        # nodes = [i.number for i in neighbourhood_list]
-        # comp = kosaraju(nodes, neighbourhood_list)
-        # for i in range(max(comp)):
-        #     print(f'Silna spojna skladowa {i+1}: {[nodes[j] for j in range(len(nodes)) if comp[j] == (i + 1) ]}')
+        try:
+            # example from presentation
+            neighbourhood_list = [
+                Vertice(1, [7]),
+                Vertice(2, [1, 3, 6, 7]),
+                Vertice(3, [2, 6]),
+                Vertice(4, [3, 5]),
+                Vertice(5, [3]),
+                Vertice(6, [5]),
+                Vertice(7, [1])
+            ]
+            nodes = [i.number for i in neighbourhood_list]
+            comp = kosaraju(nodes, neighbourhood_list)
+            for i in range(max(comp)):
+                print(f'Silna spojna skladowa {i+1}: {[nodes[j] for j in range(len(nodes)) if comp[j] == (i + 1) ]}')
+        except Exception as e:
+            print("Exercise 4.2 failed:", e)
 
     # elif lab_num == 5:
     #     nodes, edges = generate_random_flow_network(3)
@@ -295,8 +278,6 @@ def main(lab_num):
     #     Graph.showWeightedDirectedGraph(edges)
 
 
-    elif lab_num == 66:
-        print(generate_k_regular_graph(6, 4))
     else:
         print("There is no laboratory with the given number.")
 
