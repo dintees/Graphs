@@ -183,11 +183,10 @@ class Graph():
         nx.draw_networkx_nodes(g, pos, node_color=node_colors, **node_opts)
         nx.draw_networkx_labels(g, pos, font_size=20, font_color="white")
         nx.draw_networkx_edges(g, pos, width=2.0, edge_color="black", arrowsize=15)
-        nx.draw_networkx_edge_labels(g,pos,edge_labels=edge_labels, font_size=20, label_pos=0.4)
+        nx.draw_networkx_edge_labels(g,pos,edge_labels=edge_labels, font_size=20, label_pos=0.3)
 
         p.tight_layout()
         plt.axis('off')
-        # plt.savefig("temp.png")
         plt.savefig(filename + ".png")
 
     def showWeightedDirectedGraphWithFlow(f, weightedDirectedEdges, filename):

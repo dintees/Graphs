@@ -3,6 +3,7 @@ from pprint import pprint
 import argparse
 import os
 from pathlib import Path
+from random import randint
 
 from src.lab01.Graph import Graph
 
@@ -21,8 +22,10 @@ from src.lab03.ex4_find_center_node import find_center_node_and_minimax
 from src.lab03.ex5_prim import prim
 
 from src.lab04.Vertice import Vertice
-# from src.lab04.ex1_generate_random_digraph import generate_random_digraph
+from src.lab04.ex1_generate_random_digraph import generate_random_digraph
 from src.lab04.ex2_Kosaraju_algorithm import kosaraju
+from src.lab04.ex3_bellman_ford import bellman_ford
+from src.lab04.ex4_johnson import johnson
 
 from src.lab05.ex1_generate_random_flow_network import generate_random_flow_network
 from src.lab05.ex2_ford_fulkerson import ford_fulkerson
@@ -256,23 +259,47 @@ def main(lab_num):
         # 1.
         
         # 2.
+        # try:
+        #     # example from presentation
+        #     neighbourhood_list = [
+        #         Vertice(1, [7]),
+        #         Vertice(2, [1, 3, 6, 7]),
+        #         Vertice(3, [2, 6]),
+        #         Vertice(4, [3, 5]),
+        #         Vertice(5, [3]),
+        #         Vertice(6, [5]),
+        #         Vertice(7, [1])
+        #     ]
+        #     nodes = [i.number for i in neighbourhood_list]
+        #     comp = kosaraju(nodes, neighbourhood_list)
+        #     for i in range(max(comp)):
+        #         print(f'Silna spojna skladowa {i+1}: {[nodes[j] for j in range(len(nodes)) if comp[j] == (i + 1) ]}')
+        # except Exception as e:
+        #     print("Exercise 4.2 failed:", e)
+
+        digraph = generate_random_digraph(5, 0.5)
+        nodes = digraph.nodes
+        edges = [[list(edge), randint(-5, 10)] for edge in digraph.edges]
+        source_node = 0
+        print(f"\n4.3 bellman_ford(nodes={nodes}, edges={edges}, source_node={source_node})")
         try:
-            # example from presentation
-            neighbourhood_list = [
-                Vertice(1, [7]),
-                Vertice(2, [1, 3, 6, 7]),
-                Vertice(3, [2, 6]),
-                Vertice(4, [3, 5]),
-                Vertice(5, [3]),
-                Vertice(6, [5]),
-                Vertice(7, [1])
-            ]
-            nodes = [i.number for i in neighbourhood_list]
-            comp = kosaraju(nodes, neighbourhood_list)
-            for i in range(max(comp)):
-                print(f'Silna spojna skladowa {i+1}: {[nodes[j] for j in range(len(nodes)) if comp[j] == (i + 1) ]}')
+            is_negative_cycle, d_s, p_s= bellman_ford(nodes, edges, source_node)
+            Graph.showWeightedDirectedGraph(((edge[0][0], edge[0][1],{"weight": edge[1]}) for edge in edges), "figures/lab04_ex03_bellman_ford")
+            print(f"Output: is_negative_cycle={is_negative_cycle}, d_s={d_s}, p_s={p_s}")
         except Exception as e:
-            print("Exercise 4.2 failed:", e)
+            print("Exercise 4.3 failed:", e)
+
+
+        digraph = generate_random_digraph(5, 0.5)
+        nodes = digraph.nodes
+        edges = [[list(edge), randint(-5, 10)] for edge in digraph.edges]
+        print(f"\n4.4 johnson(nodes={nodes}, edges={edges}, source_node={source_node})")
+        try:
+            res = johnson(nodes, edges)
+            Graph.showWeightedDirectedGraph(((edge[0][0], edge[0][1],{"weight": edge[1]}) for edge in edges), "figures/lab04_ex04_johnson")
+            print(f"Output: {res}")
+        except Exception as e:
+            print("Exercise 4.4 failed:", e)
 
     elif lab_num == 5:
         # 1.
