@@ -23,12 +23,17 @@ from src.lab03.ex5_prim import prim
 
 from src.lab04.Vertice import Vertice
 from src.lab04.ex1_generate_random_digraph import generate_random_digraph
+from src.lab04.ex1_generate_random_digraph import neighbour_list_listning
+from src.lab04.ex1_generate_random_digraph import get_neighbour_list_for_digraph
 from src.lab04.ex2_Kosaraju_algorithm import kosaraju
 from src.lab04.ex3_bellman_ford import bellman_ford
 from src.lab04.ex4_johnson import johnson
 
 from src.lab05.ex1_generate_random_flow_network import generate_random_flow_network
 from src.lab05.ex2_ford_fulkerson import ford_fulkerson
+
+from src.lab06.ex1_page_Rank import page_rank_random_walk
+from src.lab06.ex1_page_Rank import page_rank_vector_iteraton
 
 def pp(*args):
     pprint(*args, compact=False, width=150)
@@ -257,6 +262,18 @@ def main(lab_num):
         # print(res)
         
         # 1.
+        #n - liczba wierzcholkow
+        #p - prawdopodobienstwo istnienia krawedzi miedzy wierzcholkami
+        n = 5
+        p = 0.3
+        #wygenerowanie losowego digrafu
+        rdigraph = generate_random_digraph(5,0.3)
+
+        #wyrysowanie wygenerowanego losowego digrafu
+        draw_graph(len(rdigraph.nodes), rdigraph.edges)
+
+        #lista sasiedztwa
+        neighbour_list_listning(get_neighbour_list_for_digraph(rdigraph),n)
         
         # 2.
         # try:
@@ -319,7 +336,35 @@ def main(lab_num):
         except Exception as e:
             print("Exercise 5.2 failed:", e)  
 
+    elif lab_num == 6:     
+        graph = {
+            0: [4, 5, 8],
+            1: [0, 2, 5],
+            2: [1,3, 4, 11],
+            3: [2, 4, 7, 8, 10],
+            4: [2, 6, 7, 8],
+            5: [1, 6],
+            6: [4, 5, 7],
+            7: [3, 6, 8, 11],
+            8: [3, 4, 7, 9],
+            9: [8],
+            10: [3, 8],
+            11: [0,7]
+        }
 
+        rankSortedMetodA = page_rank_random_walk(graph, 100000)
+        rankSortedMethodB = page_rank_vector_iteraton(graph, 1000)
+
+        print("Metoda a - Ranking stron internetowych:")
+        for el in rankSortedMetodA:
+            print(f'Strona internetowa:',el[0],' Page Rank:',el[1])
+
+        print("\n")
+
+        print("Metoda b - Ranking stron internetowych:")
+        for el in rankSortedMethodB:
+            print(f'Strona internetowa:',el[0],' Page Rank:',el[1])
+                
     else:
         print("There is no laboratory with the given number.")
 
