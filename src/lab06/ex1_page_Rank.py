@@ -17,11 +17,13 @@ def page_rank_random_walk(graph, N):
     if (randProbability <= 15):
       randomVertexFromRange = rand_int(0, amountVertices - 1)
     
-    if (randProbability > 15):
-      toWhatVertexMoveInStandardMoveIndex = rand_int(0, len(graph[randomVertexFromRange]) - 1)
-      eachVertexCounter[randomVertexFromRange] = eachVertexCounter[randomVertexFromRange] + 1
-      nextVertex = graph[randomVertexFromRange][toWhatVertexMoveInStandardMoveIndex]
+    else:     
+      nextVertex = random.sample(graph[randomVertexFromRange], k=1)[0]
       randomVertexFromRange = nextVertex
+      
+    eachVertexCounter[randomVertexFromRange] = eachVertexCounter[randomVertexFromRange] + 1
+
+  print(eachVertexCounter/N)
 
   rank = []
   for idx,el in enumerate(eachVertexCounter) :
