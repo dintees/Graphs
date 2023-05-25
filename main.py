@@ -23,6 +23,7 @@ from src.lab03.ex5_prim import prim
 
 from src.lab04.Vertice import Vertice
 from src.lab04.ex1_generate_random_digraph import generate_random_digraph, neighbour_list_listning, get_neighbour_list_for_digraph
+from src.lab04.ex1_generate_random_digraph import draw_digraph, get_neighbour_matrix_from_digraph, matrix_listning, get_incidence_matrix
 from src.lab04.ex2_Kosaraju_algorithm import kosaraju
 from src.lab04.ex3_bellman_ford import bellman_ford
 from src.lab04.ex4_johnson import johnson
@@ -254,21 +255,33 @@ def main(lab_num):
 
 
     elif lab_num == 4:
+        print("4.1")
         # 1.
         #n - liczba wierzcholkow
         #p - prawdopodobienstwo istnienia krawedzi miedzy wierzcholkami
         n = 5
         p = 0.3
         #wygenerowanie losowego digrafu
-        rdigraph = generate_random_digraph(5, 1)
+        rdigraph = generate_random_digraph(n, p)
 
         #wyrysowanie wygenerowanego losowego digrafu
-        draw_graph(len(rdigraph.nodes), rdigraph.edges, "figures/lab04_ex01_random_digraph")
+        draw_digraph(len(rdigraph.nodes), rdigraph.edges, "figures/lab04_ex01_random_digraph")
 
         #lista sasiedztwa
+        print("Lista sasiedztwa: ")
         neighbour_list_listning(get_neighbour_list_for_digraph(rdigraph),n)
-        
+        print("\n")
+
+        print("Macierz sasiedztwa: ")
+        matrix_listning(get_neighbour_matrix_from_digraph(rdigraph))
+        print("\n")
+
+        print("Macierz incydencji: ")
+        print(get_incidence_matrix(rdigraph))
+        print("\n")
+
         # 2.
+        print("4.2")
         try:
             # example from presentation
             neighbourhood_list = [
