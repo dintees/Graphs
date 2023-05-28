@@ -26,6 +26,8 @@ def johnson(nodes, edges):
             return "Negative cycle detected"
         shortest_paths[node] = d_s[:-1]
     
+    shortest_paths = shortest_paths[:-1]
+    
     for u in range(len(shortest_paths)):
         for v in range(len(shortest_paths[u])):
             if shortest_paths[u][v] == inf:

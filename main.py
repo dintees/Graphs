@@ -314,9 +314,9 @@ def main(lab_num):
             print("Exercise 4.3 failed:", e)
 
         # 4.
-        digraph = generate_random_digraph(5, 0.5)
+        digraph = generate_random_digraph(5, 0.8)
         nodes = digraph.nodes
-        edges = [[list(edge), randint(-5, 10)] for edge in digraph.edges]
+        edges = [[list(edge), randint(-5, 30)] for edge in digraph.edges]
         print(f"\n4.4 johnson(nodes={nodes}, edges={edges}, source_node={source_node})")
         try:
             res = johnson(nodes, edges)
